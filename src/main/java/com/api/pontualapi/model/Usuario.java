@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
     private String cpfCnpj;
 
     @Column(unique = true, length = 150, nullable = false)
-    private String email;
+    private String login;
 
     @Column(length = 150, nullable = false)
     private String senha;

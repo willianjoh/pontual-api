@@ -1,16 +1,17 @@
 package com.api.pontualapi.service;
 
+import com.api.pontualapi.dto.UsuarioDTO;
 import com.api.pontualapi.model.Usuario;
 import com.api.pontualapi.repository.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.User;
-
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -19,12 +20,18 @@ public class UsuarioService implements UserDetailsService {
     private String USER_NOT_FOUND = "Usuário não encontrado.";
     private String USER_EXIST = "Usuário já cadastrado no sistema.";
 
-    public Usuario save(Usuario usuario) {
-        boolean exists = usuarioRepository.existsByEmail(usuario.getEmail());
-        if(exists){
-            throw new RuntimeException(USER_EXIST);
+    public Usuario save(UsuarioDTO usuarioDTO) {
+        try {
+            boolean exists = usuarioRepository.existsByEmail(usuarioDTO.getLogin());
+            if(exists){
+                throw new RuntimeException(USER_EXIST);
+            }
+            Usuario usuario = new Usuario();
+            BeanUtils.copyProperties(usuarioDTO, usuario);
+            return usuarioRepository.save(usuario);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-        return usuarioRepository.save(usuario);
     }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -37,11 +44,13 @@ public class UsuarioService implements UserDetailsService {
                 .build();
     }
 
-    public Usuario update(Integer id, Usuario usuario) {
-        Usuario usuarioSave = usuarioRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
-        usuarioSave.setCpfCnpj(usuario.getCpfCnpj());
-        usuarioSave.setNome(usuario.getNome());
-        usuarioSave.setSobrenome(usuario.getSobrenome());
-        return usuarioRepository.save(usuarioSave);
+    public Usuario update(Integer id, UsuarioDTO usuarioDTO) {
+        try {
+            Usuario usuarioSave = usuarioRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+            BeanUtils.copyProperties(usuarioDTO, usuarioSave);
+            return usuarioRepository.save(usuarioSave);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }
