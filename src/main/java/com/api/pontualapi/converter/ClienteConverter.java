@@ -21,6 +21,7 @@ public class ClienteConverter {
         cliente.setTelefone(clienteDTO.getContato());
         cliente.setTelefoneFixo(clienteDTO.getContatoFixo() != null ? clienteDTO.getContatoFixo() : null);
         cliente.setCpf(clienteDTO.getCpf());
+        cliente.setEmail(clienteDTO.getEmail());
         return cliente;
     }
 }

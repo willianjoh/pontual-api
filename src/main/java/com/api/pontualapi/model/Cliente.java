@@ -28,6 +28,9 @@ public class Cliente implements Serializable {
     @Column(unique = true, length = 150)
     private String cpf;
 
+    @Column(length = 150)
+    private String email;
+
     @Column(length = 150, nullable = false)
     private String telefone;
 
