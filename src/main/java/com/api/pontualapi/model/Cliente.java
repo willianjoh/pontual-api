@@ -19,10 +19,6 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", nullable = false, referencedColumnName = "id")
-    private Usuario usuario;
-
     @Column(length = 150, nullable = false)
     private String nome;
 

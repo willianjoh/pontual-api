@@ -22,7 +22,7 @@ public class UsuarioService implements UserDetailsService {
 
     public Usuario save(UsuarioDTO usuarioDTO) {
         try {
-            boolean exists = usuarioRepository.existsByEmail(usuarioDTO.getLogin());
+            boolean exists = usuarioRepository.existsByLogin(usuarioDTO.getLogin());
             if(exists){
                 throw new RuntimeException(USER_EXIST);
             }
@@ -34,8 +34,8 @@ public class UsuarioService implements UserDetailsService {
         }
     }
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
         return User
                 .builder()
                 .username(usuario.getNome())

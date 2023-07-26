@@ -23,8 +23,8 @@ public class ClienteDTO {
     private String cpf;
 
     @NotBlank
-    private String telefone;
+    private String contato;
 
-    private String telefoneFixo;
+    private String contatoFixo;
 
 }
