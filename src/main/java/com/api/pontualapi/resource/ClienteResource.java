@@ -4,6 +4,8 @@ import com.api.pontualapi.dto.ClienteDTO;
 import com.api.pontualapi.model.Cliente;
 import com.api.pontualapi.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,9 @@ public class ClienteResource {
     private ClienteService clienteService;
 
     @GetMapping()
-    @ResponseBody
-    public List<Cliente> listarTodos() {
-        return clienteService.findAll();
+    public ResponseEntity<Page<ClienteDTO>> listarTodos(Pageable pageable) {
+        Page<ClienteDTO> todosClientes = clienteService.findAll(pageable);
+        return new ResponseEntity<>(todosClientes, HttpStatus.OK);
     }
 
     @PostMapping()

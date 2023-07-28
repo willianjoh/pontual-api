@@ -24,4 +24,16 @@ public class ClienteConverter {
         cliente.setEmail(clienteDTO.getEmail());
         return cliente;
     }
+
+    public ClienteDTO converterDTO(Cliente cliente){
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setId(cliente.getId());
+        clienteDTO.setNome(cliente.getNome());
+        clienteDTO.setSobrenome(cliente.getSobrenome());
+        clienteDTO.setCpf(cliente.getCpf());
+        clienteDTO.setContato(cliente.getTelefone());
+        clienteDTO.setContatoFixo(cliente.getTelefoneFixo() != null ? cliente.getTelefoneFixo() : null);
+        clienteDTO.setEmail(cliente.getEmail());
+        return clienteDTO;
+    }
 }
