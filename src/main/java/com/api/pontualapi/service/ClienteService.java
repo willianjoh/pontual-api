@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ClienteService {
@@ -33,7 +35,31 @@ public class ClienteService {
         return clienteRepository.save(clienteConverter.converterToEntity(clienteDTO));
     }
 
+    public Cliente update(ClienteDTO clienteDTO) {
+        Cliente cliente = clienteRepository.findById(clienteDTO.getId()).orElseThrow(null);
+        if(Objects.isNull(cliente)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente inexistente.");
+        }
+        cliente.setNome(clienteDTO.getNome());
+        cliente.setSobrenome(clienteDTO.getSobrenome());
+        cliente.setCpf(clienteDTO.getCpf());
+        cliente.setEmail(clienteDTO.getEmail());
+        cliente.setTelefone(clienteDTO.getCelular());
+        cliente.setTelefoneFixo(clienteDTO.getFixo());
+
+        return clienteRepository.save(cliente);
+    }
+
     private Boolean clienteExist(String cpf) {
         return clienteRepository.existsClienteByCpf(cpf);
+    }
+
+    public void delete(Integer id) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(null);
+        clienteRepository.delete(cliente);
+    }
+
+    public void deleteAll(List<Integer> ids) {
+        clienteRepository.deleteAllById(ids);
     }
 }

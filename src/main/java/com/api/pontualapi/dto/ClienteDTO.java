@@ -25,8 +25,8 @@ public class ClienteDTO {
     private String email;
 
     @NotBlank
-    private String contato;
+    private String celular;
 
-    private String contatoFixo;
+    private String fixo;
 
 }

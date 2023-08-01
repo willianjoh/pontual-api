@@ -32,4 +32,22 @@ public class ClienteResource {
         Cliente cliente = clienteService.save(clienteDTO);
         return new ResponseEntity<>(cliente, HttpStatus.CREATED);
     }
+
+    @PutMapping()
+    public ResponseEntity<Cliente> update(@Valid @RequestBody ClienteDTO clienteDTO) {
+        Cliente cliente = clienteService.update(clienteDTO);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+        clienteService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/deleteAll")
+    public ResponseEntity<?> deleteAll(@Valid @RequestBody List<Integer> id) {
+        clienteService.deleteAll(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
