@@ -30,9 +30,9 @@ public class Cliente implements Serializable {
     private String email;
 
     @Column(length = 150, nullable = false)
-    private String telefone;
+    private String celular;
 
     @Column(length = 150)
-    private String telefoneFixo;
+    private String fixo;
 
 }

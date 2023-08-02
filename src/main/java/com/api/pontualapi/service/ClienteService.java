@@ -2,11 +2,13 @@ package com.api.pontualapi.service;
 
 import com.api.pontualapi.converter.ClienteConverter;
 import com.api.pontualapi.dto.ClienteDTO;
+import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.model.Cliente;
 import com.api.pontualapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,8 +27,8 @@ public class ClienteService {
     @Autowired
     private ClienteConverter clienteConverter;
 
-    public Page<ClienteDTO> findAllPage(Pageable pageable) {
-        return clienteRepository.findAll(pageable).map(cliente -> clienteConverter.converterDTO(cliente));
+    public Page<ClienteDTO> findAllPage(Pageable pageable, FilterDTO filtro) {
+        return clienteRepository.buscaTodosClientes(filtro.getFilter(), pageable);
     }
 
     public List<ClienteDTO> findAll() {
@@ -42,15 +44,15 @@ public class ClienteService {
 
     public Cliente update(ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(clienteDTO.getId()).orElseThrow(null);
-        if(Objects.isNull(cliente)){
+        if (Objects.isNull(cliente)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente inexistente.");
         }
         cliente.setNome(clienteDTO.getNome());
         cliente.setSobrenome(clienteDTO.getSobrenome());
         cliente.setCpf(clienteDTO.getCpf());
         cliente.setEmail(clienteDTO.getEmail());
-        cliente.setTelefone(clienteDTO.getCelular());
-        cliente.setTelefoneFixo(clienteDTO.getFixo());
+        cliente.setCelular(clienteDTO.getCelular());
+        cliente.setFixo(clienteDTO.getFixo());
 
         return clienteRepository.save(cliente);
     }
@@ -61,7 +63,7 @@ public class ClienteService {
 
     public void delete(Integer id) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(null);
-        if(!Objects.isNull(cliente)){
+        if (!Objects.isNull(cliente)) {
             clienteRepository.delete(cliente);
         }
     }

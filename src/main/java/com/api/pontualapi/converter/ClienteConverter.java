@@ -18,8 +18,8 @@ public class ClienteConverter {
         Cliente cliente = new Cliente();
         cliente.setNome(clienteDTO.getNome());
         cliente.setSobrenome(clienteDTO.getSobrenome());
-        cliente.setTelefone(clienteDTO.getCelular());
-        cliente.setTelefoneFixo(clienteDTO.getFixo() != null ? clienteDTO.getFixo() : null);
+        cliente.setCelular(clienteDTO.getCelular());
+        cliente.setFixo(clienteDTO.getFixo() != null ? clienteDTO.getFixo() : null);
         cliente.setCpf(clienteDTO.getCpf());
         cliente.setEmail(clienteDTO.getEmail());
         return cliente;
@@ -31,8 +31,8 @@ public class ClienteConverter {
         clienteDTO.setNome(cliente.getNome());
         clienteDTO.setSobrenome(cliente.getSobrenome());
         clienteDTO.setCpf(cliente.getCpf());
-        clienteDTO.setCelular(cliente.getTelefone());
-        clienteDTO.setFixo(cliente.getTelefoneFixo() != null ? cliente.getTelefoneFixo() : null);
+        clienteDTO.setCelular(cliente.getCelular());
+        clienteDTO.setFixo(cliente.getFixo() != null ? cliente.getFixo() : null);
         clienteDTO.setEmail(cliente.getEmail());
         return clienteDTO;
     }
