@@ -23,7 +23,13 @@ public class ClienteResource {
 
     @GetMapping()
     public ResponseEntity<Page<ClienteDTO>> listarTodos(Pageable pageable) {
-        Page<ClienteDTO> todosClientes = clienteService.findAll(pageable);
+        Page<ClienteDTO> todosClientes = clienteService.findAllPage(pageable);
+        return new ResponseEntity<>(todosClientes, HttpStatus.OK);
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<ClienteDTO>> listar() {
+        List<ClienteDTO> todosClientes = clienteService.findAll();
         return new ResponseEntity<>(todosClientes, HttpStatus.OK);
     }
 
@@ -45,7 +51,7 @@ public class ClienteResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/deleteAll")
+    @PostMapping("/deleteAllById")
     public ResponseEntity<?> deleteAll(@Valid @RequestBody List<Integer> id) {
         clienteService.deleteAll(id);
         return new ResponseEntity<>(HttpStatus.OK);

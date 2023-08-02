@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -24,8 +25,12 @@ public class ClienteService {
     @Autowired
     private ClienteConverter clienteConverter;
 
-    public Page<ClienteDTO> findAll(Pageable pageable) {
+    public Page<ClienteDTO> findAllPage(Pageable pageable) {
         return clienteRepository.findAll(pageable).map(cliente -> clienteConverter.converterDTO(cliente));
+    }
+
+    public List<ClienteDTO> findAll() {
+        return clienteRepository.findAll().stream().map(cliente -> clienteConverter.converterDTO(cliente)).collect(Collectors.toList());
     }
 
     public Cliente save(ClienteDTO clienteDTO) {
@@ -56,7 +61,9 @@ public class ClienteService {
 
     public void delete(Integer id) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(null);
-        clienteRepository.delete(cliente);
+        if(!Objects.isNull(cliente)){
+            clienteRepository.delete(cliente);
+        }
     }
 
     public void deleteAll(List<Integer> ids) {
