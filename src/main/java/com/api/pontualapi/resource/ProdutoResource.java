@@ -2,8 +2,10 @@ package com.api.pontualapi.resource;
 
 import com.api.pontualapi.dto.ClienteDTO;
 import com.api.pontualapi.dto.FilterDTO;
+import com.api.pontualapi.dto.ProdutoDTO;
 import com.api.pontualapi.model.Cliente;
-import com.api.pontualapi.service.ClienteService;
+import com.api.pontualapi.model.Produto;
+import com.api.pontualapi.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,40 +17,40 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/api/produto")
 @CrossOrigin("http://localhost:4200")
-public class ClienteResource {
+public class ProdutoResource {
 
     @Autowired
-    private ClienteService clienteService;
+    private ProdutoService produtoService;
 
     @PostMapping("/listarTodos")
-    public ResponseEntity<Page<ClienteDTO>> listarTodos(@RequestBody FilterDTO filtro, Pageable pageable) {
-        Page<ClienteDTO> todosClientes = clienteService.findAllPage(pageable, filtro);
+    public ResponseEntity<Page<ProdutoDTO>> listarTodos(@RequestBody FilterDTO filtro, Pageable pageable) {
+        Page<ProdutoDTO> todosClientes = produtoService.findAllPage(pageable, filtro);
         return new ResponseEntity<>(todosClientes, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<ClienteDTO> save(@Valid @RequestBody ClienteDTO clienteDTO) {
-        ClienteDTO cliente = clienteService.save(clienteDTO);
-        return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+    public ResponseEntity<ProdutoDTO> save(@Valid @RequestBody ProdutoDTO produtoDTO) {
+        ProdutoDTO produto = produtoService.save(produtoDTO);
+        return new ResponseEntity<>(produto, HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<ClienteDTO> update(@Valid @RequestBody ClienteDTO clienteDTO) {
-        ClienteDTO cliente = clienteService.update(clienteDTO);
-        return new ResponseEntity<>(cliente, HttpStatus.OK);
+    public ResponseEntity<ProdutoDTO> update(@Valid @RequestBody ProdutoDTO produtoDTO) {
+        ProdutoDTO produto = produtoService.update(produtoDTO);
+        return new ResponseEntity<>(produto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
-        clienteService.delete(id);
+        produtoService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/deleteAllById")
     public ResponseEntity<?> deleteAll(@Valid @RequestBody List<Integer> id) {
-        clienteService.deleteAll(id);
+        produtoService.deleteAll(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

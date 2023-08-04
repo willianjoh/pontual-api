@@ -31,18 +31,14 @@ public class ClienteService {
         return clienteRepository.buscaTodosClientes(filtro.getFilter(), pageable);
     }
 
-    public List<ClienteDTO> findAll() {
-        return clienteRepository.findAll().stream().map(cliente -> clienteConverter.converterDTO(cliente)).collect(Collectors.toList());
-    }
-
-    public Cliente save(ClienteDTO clienteDTO) {
+    public ClienteDTO save(ClienteDTO clienteDTO) {
         if (clienteExist(clienteDTO.getCpf())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente já cadastrado na base.");
         }
-        return clienteRepository.save(clienteConverter.converterToEntity(clienteDTO));
+        return clienteConverter.converterDTO(clienteRepository.save(clienteConverter.converterToEntity(clienteDTO)));
     }
 
-    public Cliente update(ClienteDTO clienteDTO) {
+    public ClienteDTO update(ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(clienteDTO.getId()).orElseThrow(null);
         if (Objects.isNull(cliente)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente inexistente.");
@@ -54,7 +50,7 @@ public class ClienteService {
         cliente.setCelular(clienteDTO.getCelular());
         cliente.setFixo(clienteDTO.getFixo());
 
-        return clienteRepository.save(cliente);
+        return clienteConverter.converterDTO(clienteRepository.save(cliente));
     }
 
     private Boolean clienteExist(String cpf) {
