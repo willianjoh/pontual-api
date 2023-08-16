@@ -19,7 +19,6 @@ public interface ProdutoRepository  extends JpaRepository<Produto, Integer> {
             "where (lower(produto.codigo) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(produto.nome) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(produto.modelo) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(produto.descricao) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(produto.valor) like concat('%', lower(:filter), '%') or :filter is null )")
+            "(lower(produto.descricao) like concat('%', lower(:filter), '%') or :filter is null )")
     Page<ProdutoDTO> buscaTodosProdutos(@Param("filter") String filter, Pageable pageable);
 }

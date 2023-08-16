@@ -43,6 +43,9 @@ public class ClienteService {
         if (Objects.isNull(cliente)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente inexistente.");
         }
+        if (clienteExist(clienteDTO.getCpf())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente já cadastrado na base.");
+        }
         cliente.setNome(clienteDTO.getNome());
         cliente.setSobrenome(clienteDTO.getSobrenome());
         cliente.setCpf(clienteDTO.getCpf());
