@@ -33,7 +33,7 @@ public class Produto implements Serializable {
     @Column(length = 255)
     private String descricao;
 
-    @Column(length = 150, nullable = false)
+    @Column(nullable = false, scale = 2)
     private BigDecimal valor;
 
 }

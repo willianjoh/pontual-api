@@ -6,7 +6,9 @@ import lombok.Getter;
 public enum FormaPagamentoEnum {
     DINHEIRO(1, "Dinheiro"),
     DEBITO(2, "Débito"),
-    CREDITO(3, "Crédito");
+    CREDITO(3, "Crédito"),
+    PIX(4, "Pix");
+
     public final Integer code;
     public final String label;
 

@@ -27,6 +27,7 @@ public class ProdutoConverter {
 
     public ProdutoDTO converterDTO(Produto produto){
         ProdutoDTO produtoDTO = new ProdutoDTO();
+        produto.setId(produto.getId());
         produtoDTO.setNome(produto.getNome());
         produtoDTO.setCodigo(produto.getCodigo());
         produtoDTO.setModelo(produto.getModelo());

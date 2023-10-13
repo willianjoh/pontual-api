@@ -10,7 +10,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 @Getter @Setter
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
 public class VendaServicoDTO {
 
     private Integer id;
@@ -32,4 +32,15 @@ public class VendaServicoDTO {
     private Integer qtdParcelas;
 
     private Long valorParcela;
+
+    public VendaServicoDTO(Integer id, Date data, TipoOperacaoEnum tipoOperacao, Long valorTotal, Long valorCusto, FormaPagamentoEnum formaPagamentoEnum, Integer qtdParcelas, Long valorParcela) {
+        this.id = id;
+        this.data = data;
+        this.tipoOperacao = tipoOperacao;
+        this.valorTotal = valorTotal;
+        this.valorCusto = valorCusto;
+        this.formaPagamentoEnum = formaPagamentoEnum;
+        this.qtdParcelas = qtdParcelas;
+        this.valorParcela = valorParcela;
+    }
 }

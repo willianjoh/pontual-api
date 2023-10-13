@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
 @Data
-@Table(name = "servico")
 @Getter
 @Setter
+@Entity
+@Table(name = "servico")
 @NoArgsConstructor(force = true)
 public class Servico implements Serializable {
     @Id
@@ -26,8 +26,8 @@ public class Servico implements Serializable {
     @Column(length = 150, nullable = false)
     private String tipo;
 
-    @Column(length = 150, nullable = false)
-    private BigDecimal valor;
+    @Column(nullable = false, scale = 2)
+    private BigDecimal preco;
 
     @Column(length = 255)
     private String descricao;

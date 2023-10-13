@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
 public class ClienteDTO {
 
     private Integer id;
@@ -27,4 +27,13 @@ public class ClienteDTO {
 
     private String fixo;
 
+    public ClienteDTO(Integer id, String nome, String sobrenome, String cpf, String email, String celular, String fixo) {
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.email = email;
+        this.celular = celular;
+        this.fixo = fixo;
+    }
 }
