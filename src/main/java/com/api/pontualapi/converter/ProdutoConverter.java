@@ -1,13 +1,13 @@
 package com.api.pontualapi.converter;
 
-import com.api.pontualapi.dto.ClienteDTO;
 import com.api.pontualapi.dto.ProdutoDTO;
-import com.api.pontualapi.model.Cliente;
 import com.api.pontualapi.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+
+import java.math.RoundingMode;
 
 @Getter
 @Setter

@@ -26,7 +26,7 @@ public class Servico implements Serializable {
     @Column(length = 150, nullable = false)
     private String tipo;
 
-    @Column(nullable = false, scale = 2)
+    @Column(nullable = false, scale = 2, precision = 19)
     private BigDecimal preco;
 
     @Column(length = 255)
