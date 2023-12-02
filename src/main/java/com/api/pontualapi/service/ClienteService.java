@@ -2,6 +2,7 @@ package com.api.pontualapi.service;
 
 import com.api.pontualapi.converter.ClienteConverter;
 import com.api.pontualapi.dto.ClienteDTO;
+import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.model.Cliente;
 import com.api.pontualapi.repository.ClienteRepository;
@@ -29,6 +30,10 @@ public class ClienteService {
 
     public Page<ClienteDTO> findAllPage(Pageable pageable, FilterDTO filtro) {
         return clienteRepository.buscaTodosClientes(filtro.getFilter(), pageable);
+    }
+
+    public List<ClienteListDTO> listClientesOrdemServico() {
+        return clienteRepository.listClientes();
     }
 
     public ClienteDTO save(ClienteDTO clienteDTO) {

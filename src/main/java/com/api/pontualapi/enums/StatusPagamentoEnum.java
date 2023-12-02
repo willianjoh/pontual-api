@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum StatusPagamentoEnum {
-    PAGO(1, "Pago"),
-    PAGAMENTO_PENDENTE(2, "Pagamento pendente");
+    PAGAMENTO_PENDENTE(1, "Pagamento pendente"),
+    PAGO(2, "Pagamento realizado");
     public final Integer code;
     public final String label;
 

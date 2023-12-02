@@ -1,6 +1,7 @@
 package com.api.pontualapi.resource;
 
 import com.api.pontualapi.dto.ClienteDTO;
+import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.model.Cliente;
 import com.api.pontualapi.service.ClienteService;
@@ -25,6 +26,12 @@ public class ClienteResource {
     @PostMapping("/listarTodos")
     public ResponseEntity<Page<ClienteDTO>> listarTodos(@RequestBody FilterDTO filtro, Pageable pageable) {
         Page<ClienteDTO> todosClientes = clienteService.findAllPage(pageable, filtro);
+        return new ResponseEntity<>(todosClientes, HttpStatus.OK);
+    }
+
+    @GetMapping("/listarTodos")
+    public ResponseEntity<List<ClienteListDTO>> listarTodos() {
+        List<ClienteListDTO> todosClientes = clienteService.listClientesOrdemServico();
         return new ResponseEntity<>(todosClientes, HttpStatus.OK);
     }
 
