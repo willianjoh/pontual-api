@@ -1,7 +1,9 @@
 package com.api.pontualapi.resource;
 
+import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.ServicoDTO;
 import com.api.pontualapi.dto.FilterDTO;
+import com.api.pontualapi.dto.ServicoListDTO;
 import com.api.pontualapi.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,12 @@ public class ServicoResource {
     public ResponseEntity<Page<ServicoDTO>> listarTodos(@RequestBody FilterDTO filtro, Pageable pageable) {
         Page<ServicoDTO> todosServicos = servicoService.findAllPage(pageable, filtro);
         return new ResponseEntity<>(todosServicos, HttpStatus.OK);
+    }
+
+    @GetMapping("/listarTodos")
+    public ResponseEntity<List<ServicoListDTO>> listarTodos() {
+        List<ServicoListDTO> servicos = servicoService.listServicos();
+        return new ResponseEntity<>(servicos, HttpStatus.OK);
     }
 
     @PostMapping()

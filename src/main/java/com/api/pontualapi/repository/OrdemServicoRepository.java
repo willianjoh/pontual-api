@@ -1,5 +1,6 @@
 package com.api.pontualapi.repository;
 
+import com.api.pontualapi.dto.ClienteDTO;
 import com.api.pontualapi.dto.OrdemServicoDTO;
 import com.api.pontualapi.dto.ServicoDTO;
 import com.api.pontualapi.model.OrdemServico;
@@ -14,11 +15,15 @@ import org.springframework.stereotype.Repository;
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Integer> {
     Boolean existsOrdemServicoByCodigoIdentificador(String codigoIdentificador);
 
-//    @Query("SELECT NEW com.api.pontualapi.dto.ServicoDTO(" +
-//            "servico.id, servico.codigo, servico.tipo, servico.preco, servico.descricao) " +
-//            "from Servico servico " +
-//            "where (lower(servico.tipo) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-//            "(lower(servico.codigo) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-//            "(lower(servico.descricao) like concat('%', lower(:filter), '%') or :filter is null )")
-//    Page<OrdemServicoDTO> buscaTodasOrdensServicos(String filter, Pageable pageable);
+    @Query("SELECT NEW com.api.pontualapi.dto.OrdemServicoDTO(" +
+            "ordemServico.id, ordemServico.codigoIdentificador,ordemServico.cliente, ordemServico.servico, ordemServico.dataOrcamento, ordemServico.dataEntrega," +
+            " ordemServico.preco, ordemServico.status, ordemServico.statusPagamento, ordemServico.formaPagamento, ordemServico.qdtParcelas, ordemServico.precoParcela, ordemServico.observacoes) " +
+            "from OrdemServico ordemServico " +
+            "where (lower(ordemServico.codigoIdentificador) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.servico.descricao) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.dataOrcamento) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.dataEntrega) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.status) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.cliente.nome) like concat('%', lower(:filter), '%') or :filter is null )")
+    Page<OrdemServicoDTO> buscarTodos(String filter, Pageable pageable);
 }

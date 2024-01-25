@@ -1,8 +1,10 @@
 package com.api.pontualapi.service;
 
 import com.api.pontualapi.converter.ServicoConverter;
+import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.dto.ServicoDTO;
+import com.api.pontualapi.dto.ServicoListDTO;
 import com.api.pontualapi.model.Servico;
 import com.api.pontualapi.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +63,10 @@ public class ServicoService {
     }
 
     public void deleteAll(List<Integer> ids) {
-        {
             servicoRepository.deleteAllById(ids);
-        }
+    }
+
+    public List<ServicoListDTO> listServicos() {
+        return servicoRepository.listServicos();
     }
 }

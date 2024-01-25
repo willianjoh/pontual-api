@@ -1,8 +1,12 @@
 package com.api.pontualapi.dto;
 
+import com.api.pontualapi.converter.ClienteConverter;
+import com.api.pontualapi.converter.ServicoConverter;
 import com.api.pontualapi.enums.FormaPagamentoEnum;
 import com.api.pontualapi.enums.StatusOrdemServicoEnum;
 import com.api.pontualapi.enums.StatusPagamentoEnum;
+import com.api.pontualapi.model.Cliente;
+import com.api.pontualapi.model.Servico;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,11 +54,11 @@ public class OrdemServicoDTO {
 
     private String observacoes;
 
-    public OrdemServicoDTO(Integer id, String codigoIdentificador, ClienteDTO cliente, ServicoDTO servico, LocalDateTime dataOrcamento, LocalDateTime dataEntrega, BigDecimal preco, StatusOrdemServicoEnum status, StatusPagamentoEnum statusPagamento, FormaPagamentoEnum formaPagamento, Long qdtParcelas, BigDecimal precoParcela, String observacoes) {
+    public OrdemServicoDTO(Integer id, String codigoIdentificador, Cliente cliente, Servico servico, LocalDateTime dataOrcamento, LocalDateTime dataEntrega, BigDecimal preco, StatusOrdemServicoEnum status, StatusPagamentoEnum statusPagamento, FormaPagamentoEnum formaPagamento, Long qdtParcelas, BigDecimal precoParcela, String observacoes) {
         this.id = id;
         this.codigoIdentificador = codigoIdentificador;
-        this.cliente = cliente;
-        this.servico = servico;
+        this.cliente = new ClienteConverter().converterDTO(cliente);
+        this.servico = new ServicoConverter().converterDTO(servico);
         this.dataOrcamento = dataOrcamento;
         this.dataEntrega = dataEntrega;
         this.preco = preco;
