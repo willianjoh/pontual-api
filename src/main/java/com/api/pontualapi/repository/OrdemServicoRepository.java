@@ -16,14 +16,13 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Inte
     Boolean existsOrdemServicoByCodigoIdentificador(String codigoIdentificador);
 
     @Query("SELECT NEW com.api.pontualapi.dto.OrdemServicoDTO(" +
-            "ordemServico.id, ordemServico.codigoIdentificador,ordemServico.cliente, ordemServico.servico, ordemServico.dataOrcamento, ordemServico.dataEntrega," +
-            " ordemServico.preco, ordemServico.status, ordemServico.statusPagamento, ordemServico.formaPagamento, ordemServico.qdtParcelas, ordemServico.precoParcela, ordemServico.observacoes) " +
+            "ordemServico.id, ordemServico.codigoIdentificador,ordemServico.cliente, ordemServico.servico, ordemServico.dataOrcamento, ordemServico.dataEntrega, " +
+            "ordemServico.preco, ordemServico.status, ordemServico.statusPagamento, ordemServico.formaPagamento, ordemServico.qdtParcelas, ordemServico.precoParcela, ordemServico.observacoes) " +
             "from OrdemServico ordemServico " +
             "where (lower(ordemServico.codigoIdentificador) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(ordemServico.servico.descricao) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(ordemServico.dataOrcamento) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(ordemServico.dataEntrega) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(ordemServico.status) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(lower(ordemServico.servico.tipo) like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(to_char(ordemServico.dataOrcamento, 'DD/MM/YYYY') like concat('%', lower(:filter), '%') or :filter is null ) or " +
+            "(to_char(ordemServico.dataEntrega, 'DD/MM/YYYY') like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(ordemServico.cliente.nome) like concat('%', lower(:filter), '%') or :filter is null )")
     Page<OrdemServicoDTO> buscarTodos(String filter, Pageable pageable);
 }

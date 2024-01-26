@@ -22,13 +22,13 @@ public class OrdemServicoDTO {
     private Integer id;
 
     @NotBlank
-    private String codigoIdentificador;
+    private String codigo;
 
     @NotBlank
     private ClienteDTO cliente;
 
     @NotBlank
-    private ServicoDTO servico;
+    private ServicoDTO tipoServico;
 
     @NotBlank
     private LocalDateTime dataOrcamento;
@@ -37,36 +37,36 @@ public class OrdemServicoDTO {
     private LocalDateTime dataEntrega;
 
     @NotBlank
-    private BigDecimal preco;
+    private BigDecimal valorServico;
 
     @NotBlank
-    private StatusOrdemServicoEnum status;
+    private String status;
 
     @NotBlank
-    private StatusPagamentoEnum statusPagamento;
+    private String statusPagamento;
 
     @NotBlank
-    private FormaPagamentoEnum formaPagamento;
+    private String formaPagamento;
 
-    private Long qdtParcelas;
+    private Long qtdParcelas;
 
-    private BigDecimal precoParcela;
+    private BigDecimal valorParcela;
 
-    private String observacoes;
+    private String observacao;
 
-    public OrdemServicoDTO(Integer id, String codigoIdentificador, Cliente cliente, Servico servico, LocalDateTime dataOrcamento, LocalDateTime dataEntrega, BigDecimal preco, StatusOrdemServicoEnum status, StatusPagamentoEnum statusPagamento, FormaPagamentoEnum formaPagamento, Long qdtParcelas, BigDecimal precoParcela, String observacoes) {
+    public OrdemServicoDTO(Integer id, String codigoIdentificador, Cliente cliente, Servico servico, LocalDateTime dataOrcamento, LocalDateTime dataEntrega, BigDecimal valor, StatusOrdemServicoEnum statusServico, StatusPagamentoEnum statusPagamento, FormaPagamentoEnum formaPagamento, Long qtdParcelas, BigDecimal valorParcela, String observacao) {
         this.id = id;
-        this.codigoIdentificador = codigoIdentificador;
+        this.codigo = codigoIdentificador;
         this.cliente = new ClienteConverter().converterDTO(cliente);
-        this.servico = new ServicoConverter().converterDTO(servico);
+        this.tipoServico = new ServicoConverter().converterDTO(servico);
         this.dataOrcamento = dataOrcamento;
         this.dataEntrega = dataEntrega;
-        this.preco = preco;
-        this.status = status;
-        this.statusPagamento = statusPagamento;
-        this.formaPagamento = formaPagamento;
-        this.qdtParcelas = qdtParcelas;
-        this.precoParcela = precoParcela;
-        this.observacoes = observacoes;
+        this.valorServico = valor;
+        this.status = statusServico.getLabel();
+        this.statusPagamento = statusPagamento.getLabel();
+        this.formaPagamento = formaPagamento.getLabel();
+        this.qtdParcelas = qtdParcelas;
+        this.valorParcela = valorParcela;
+        this.observacao = observacao;
     }
 }

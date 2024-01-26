@@ -4,16 +4,12 @@ import lombok.Getter;
 
 @Getter
 public enum FormaPagamentoEnum {
-    DINHEIRO(1, "Dinheiro"),
-    DEBITO(2, "Débito"),
-    CREDITO(3, "Crédito"),
-    PIX(4, "Pix");
-
-    public final Integer code;
+    DINHEIRO("Dinheiro"),
+    DEBITO("Débito"),
+    CREDITO("Crédito"),
+    PIX( "Pix");
     public final String label;
-
-    FormaPagamentoEnum(Integer code, String label) {
-        this.code = code;
+    FormaPagamentoEnum(String label) {
         this.label = label;
     }
 }

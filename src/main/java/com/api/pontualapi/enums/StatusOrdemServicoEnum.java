@@ -4,14 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum StatusOrdemServicoEnum {
-    EM_ANDAMENTO(1, "Em andamento"),
-    DISPONIVEL_RETIRADA(2, "Disponível para retirada"),
-    ENTREGUE(3, "Entregue");
-    public final Integer code;
+    INICIADO("INICIADO"),
+    PENDENTE("PENDENTE"),
+    FINALIZADO( "FINALIZADO"),
+    CANCELADO("CANCELADO");
     public final String label;
 
-    StatusOrdemServicoEnum(Integer code, String label) {
-        this.code = code;
+    StatusOrdemServicoEnum(String label) {
         this.label = label;
     }
 }
