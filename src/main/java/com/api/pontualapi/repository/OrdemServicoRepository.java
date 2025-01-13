@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, String> {
     Boolean existsOrdemServicoByCodigoIdentificador(String codigoIdentificador);
@@ -23,5 +25,9 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Stri
             "(lower(ordemServico.status) = lower(:filter) OR :filter IS NULL) OR " +
             "(lower(ordemServico.cliente.nome) LIKE concat('%', lower(:filter), '%') OR :filter IS NULL)")
     Page<OrdemServicoDTO> buscarTodos(String filter, Pageable pageable);
+
+
+    @Query("SELECT o FROM OrdemServico o WHERE o.cliente.id = :clienteId")
+    List<OrdemServico> findOrcamentosByClienteId(String clienteId);
 
 }

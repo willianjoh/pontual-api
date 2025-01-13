@@ -5,7 +5,9 @@ import com.api.pontualapi.dto.ClienteDTO;
 import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.model.Cliente;
+import com.api.pontualapi.model.OrdemServico;
 import com.api.pontualapi.repository.ClienteRepository;
+import com.api.pontualapi.repository.OrdemServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,9 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private OrdemServicoRepository ordemServicoRepository;
 
     @Autowired
     private ClienteConverter clienteConverter;
@@ -60,6 +65,7 @@ public class ClienteService {
 
     public void delete(String id) {
         Cliente cliente = clienteRepository.findById(id).orElse(null);
+
         if (!Objects.isNull(cliente)) {
             clienteRepository.delete(cliente);
         }
