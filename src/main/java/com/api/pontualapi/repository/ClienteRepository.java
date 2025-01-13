@@ -23,8 +23,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, String> {
             "where (lower(cliente.nome) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(cliente.cpf) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(cliente.email) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(cliente.celular) like concat('%', lower(:filter), '%') or :filter is null) " +
-            "ORDER BY cliente.nome ASC")
+            "(lower(cliente.celular) like concat('%', lower(:filter), '%') or :filter is null)")
     Page<ClienteDTO> buscaTodosClientes(@Param("filter") String filter, Pageable pageable);
 
     @Query("SELECT NEW com.api.pontualapi.dto.ClienteListDTO(" +
