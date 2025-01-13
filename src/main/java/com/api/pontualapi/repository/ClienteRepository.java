@@ -11,26 +11,24 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+public interface ClienteRepository extends JpaRepository<Cliente, String> {
 
     Boolean existsClienteByCpf(String cpf);
 
     @Query("SELECT NEW com.api.pontualapi.dto.ClienteDTO(" +
-            "cliente.id, cliente.nome, cliente.sobrenome, cliente.cpf, cliente.email, cliente.celular, cliente.fixo) " +
+            "cliente.id, cliente.nome, cliente.cpf, cliente.email, cliente.celular) " +
             "from Cliente cliente " +
             "where (lower(cliente.nome) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(cliente.sobrenome) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(cliente.cpf) like concat('%', lower(:filter), '%') or :filter is null ) or " +
             "(lower(cliente.email) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(cliente.celular) like concat('%', lower(:filter), '%') or :filter is null ) or " +
-            "(lower(cliente.fixo) like concat('%', lower(:filter), '%') or :filter is null )")
+            "(lower(cliente.celular) like concat('%', lower(:filter), '%') or :filter is null) " +
+            "ORDER BY cliente.nome ASC")
     Page<ClienteDTO> buscaTodosClientes(@Param("filter") String filter, Pageable pageable);
 
     @Query("SELECT NEW com.api.pontualapi.dto.ClienteListDTO(" +
-            "cliente.id, cliente.nome, cliente.sobrenome) " +
+            "cliente.id, cliente.nome) " +
             "from Cliente cliente")
     List<ClienteListDTO> listClientes();
 

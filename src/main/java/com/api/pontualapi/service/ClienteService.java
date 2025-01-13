@@ -9,15 +9,12 @@ import com.api.pontualapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -38,7 +35,7 @@ public class ClienteService {
 
     public ClienteDTO save(ClienteDTO clienteDTO) {
         if (clienteExist(clienteDTO.getCpf())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente já cadastrado na base.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado na base.");
         }
         return clienteConverter.converterDTO(clienteRepository.save(clienteConverter.converterToEntity(clienteDTO)));
     }
@@ -50,11 +47,9 @@ public class ClienteService {
         }
 
         cliente.setNome(clienteDTO.getNome());
-        cliente.setSobrenome(clienteDTO.getSobrenome());
         cliente.setCpf(clienteDTO.getCpf());
         cliente.setEmail(clienteDTO.getEmail());
         cliente.setCelular(clienteDTO.getCelular());
-        cliente.setFixo(clienteDTO.getFixo());
 
         return clienteConverter.converterDTO(clienteRepository.save(cliente));
     }
@@ -63,14 +58,14 @@ public class ClienteService {
         return clienteRepository.existsClienteByCpf(cpf);
     }
 
-    public void delete(Integer id) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(null);
+    public void delete(String id) {
+        Cliente cliente = clienteRepository.findById(id).orElse(null);
         if (!Objects.isNull(cliente)) {
             clienteRepository.delete(cliente);
         }
     }
 
-    public void deleteAll(List<Integer> ids) {
+    public void deleteAll(List<String> ids) {
         clienteRepository.deleteAllById(ids);
     }
 }

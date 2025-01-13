@@ -4,9 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum StatusOrdemServicoEnum {
-    INICIADO("INICIADO"),
     PENDENTE("PENDENTE"),
-    FINALIZADO( "FINALIZADO"),
+    CONCLUIDO( "CONCLUIDO"),
     CANCELADO("CANCELADO");
     public final String label;
 

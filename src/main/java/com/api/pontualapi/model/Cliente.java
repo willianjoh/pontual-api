@@ -1,38 +1,39 @@
 package com.api.pontualapi.model;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
 @Table(name = "cliente")
-@Getter
-@Setter
-@NoArgsConstructor(force = true)
-@AllArgsConstructor
-public class Cliente implements Serializable {
+public class Cliente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false, unique = true)
+    private String id;
 
+    @NotNull
+    @Size(max = 150)
     @Column(length = 150, nullable = false)
     private String nome;
 
-    @Column(length = 150, nullable = false)
-    private String sobrenome;
-
+    @NotNull
+    @Size(max = 150)
     @Column(unique = true, length = 150)
     private String cpf;
 
+    @Email
+    @Size(max = 150)
     @Column(length = 150)
     private String email;
 
+    @NotNull
+    @Size(max = 15)
     @Column(length = 150, nullable = false)
     private String celular;
-
-    @Column(length = 150)
-    private String fixo;
-
 }

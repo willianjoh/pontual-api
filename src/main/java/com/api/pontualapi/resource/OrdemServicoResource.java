@@ -1,10 +1,7 @@
 package com.api.pontualapi.resource;
 
-import com.api.pontualapi.dto.ClienteDTO;
-import com.api.pontualapi.dto.ClienteListDTO;
 import com.api.pontualapi.dto.FilterDTO;
 import com.api.pontualapi.dto.OrdemServicoDTO;
-import com.api.pontualapi.service.ClienteService;
 import com.api.pontualapi.service.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,13 +40,13 @@ public class OrdemServicoResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> delete(@PathVariable("id") String id) {
         ordemServicoService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/deleteAllById")
-    public ResponseEntity<?> deleteAll(@Valid @RequestBody List<Integer> id) {
+    public ResponseEntity<?> deleteAll(@Valid @RequestBody List<String> id) {
         ordemServicoService.deleteAll(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

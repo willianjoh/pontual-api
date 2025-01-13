@@ -1,0 +1,32 @@
+-- Criação da tabela 'cliente'
+CREATE TABLE cliente (
+    id VARCHAR(36) PRIMARY KEY DEFAULT uuid_generate_v4()::TEXT,  -- UUID como texto
+    nome VARCHAR(150) NOT NULL,
+    cpf VARCHAR(150) NOT NULL UNIQUE,
+    email VARCHAR(150),
+    celular VARCHAR(150) NOT NULL,
+    CONSTRAINT unique_cpf UNIQUE (cpf)  -- Garante que o CPF seja único
+);
+
+-- Extensão para suportar geração de UUIDs
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- Criação da tabela 'ordem_servico'
+CREATE TABLE ordem_servico (
+    id VARCHAR(36) PRIMARY KEY DEFAULT uuid_generate_v4()::TEXT,  -- UUID como texto
+    codigo_identificador VARCHAR(15) NOT NULL,       -- Código identificador
+    cliente_id VARCHAR(36) NOT NULL,                 -- Chave estrangeira para o cliente
+    servico VARCHAR(255) NOT NULL,                   -- Descrição do serviço
+    data_orcamento DATE NOT NULL,                     -- Data do orçamento
+    data_entrega DATE NOT NULL,                       -- Data de entrega
+    preco DECIMAL(19,2) NOT NULL,                    -- Preço do serviço
+    status VARCHAR(255) NOT NULL,                    -- Status da ordem de serviço
+    status_pagamento VARCHAR(255) NOT NULL,          -- Status do pagamento
+    forma_pagamento VARCHAR(255) NOT NULL,           -- Forma de pagamento
+    qdt_parcelas BIGINT,                             -- Quantidade de parcelas
+    preco_parcela DECIMAL(19,2),                     -- Preço por parcela
+    observacoes VARCHAR(255),                        -- Observações adicionais
+    CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id),  -- Chave estrangeira para o cliente
+    CONSTRAINT unique_codigo_identificador UNIQUE (codigo_identificador)    -- Garante que o código identificador seja único
+);
+
